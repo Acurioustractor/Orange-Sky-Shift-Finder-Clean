@@ -252,7 +252,16 @@
             border-radius: 10px;
             overflow: hidden;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            table-layout: fixed;
         }
+
+        .services-table th:nth-child(1) { width: 25%; } /* Location */
+        .services-table th:nth-child(2) { width: 12%; } /* Day */
+        .services-table th:nth-child(3) { width: 12%; } /* Start Time */
+        .services-table th:nth-child(4) { width: 12%; } /* End Time */
+        .services-table th:nth-child(5) { width: 8%; }  /* State */
+        .services-table th:nth-child(6) { width: 21%; } /* Address */
+        .services-table th:nth-child(7) { width: 10%; } /* Actions */
 
         .services-table th {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -271,6 +280,15 @@
             padding: clamp(12px, 2vw, 15px);
             border-bottom: 1px solid #e9ecef;
             vertical-align: top;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+        }
+
+        .services-table td:nth-child(2),
+        .services-table td:nth-child(3),
+        .services-table td:nth-child(4),
+        .services-table td:nth-child(5) {
+            text-align: center;
         }
 
         .services-table tr:hover {
@@ -1212,7 +1230,7 @@
                     <button class="mobile-view-toggle" onclick="console.log('Button clicked!'); toggleMobileView(); return false;" aria-label="Toggle between table and card view">
                     <i class="fas fa-th-large" aria-hidden="true"></i> Switch to Card View
                 </button>
-                    <table id="shiftsTable" role="table" aria-label="Orange Sky service shifts">
+                    <table id="shiftsTable" class="services-table" role="table" aria-label="Orange Sky service shifts">
                         <thead>
                             <tr role="row">
                                 <th role="columnheader" 
@@ -1533,22 +1551,9 @@
                             <strong>${shift.service_name || shift.location || 'N/A'}</strong>
                             ${distanceInfo ? `<span class="distance-info">${distanceInfo}</span>` : ''}
                         </td>
-                        <td role="gridcell" data-label="Day">
-                            <div class="time-day-section">
-                                <span class="day-badge">${shift.day || 'N/A'}</span>
-                                <div class="time-info">
-                                    <span class="time-badge">${shift.start_time || 'N/A'}</span>
-                                    <span style="margin: 0 8px; color: #666;">→</span>
-                                    <span class="time-badge">${shift.end_time || 'N/A'}</span>
-                                </div>
-                            </div>
-                        </td>
-                        <td role="gridcell" data-label="Start" style="display: none;">
-                            <span class="time-badge">${shift.start_time || 'N/A'}</span>
-                        </td>
-                        <td role="gridcell" data-label="End" style="display: none;">
-                            <span class="time-badge">${shift.end_time || 'N/A'}</span>
-                        </td>
+                        <td role="gridcell" data-label="Day">${shift.day || 'N/A'}</td>
+                        <td role="gridcell" data-label="Start">${shift.start_time || 'N/A'}</td>
+                        <td role="gridcell" data-label="End">${shift.end_time || 'N/A'}</td>
                         <td role="gridcell" data-label="State">${shift.state || 'N/A'}</td>
                         <td role="gridcell" class="mobile-hide" data-label="Address">
                             ${shift.address ? `${shift.address}, ${shift.suburb}` : 'N/A'}
