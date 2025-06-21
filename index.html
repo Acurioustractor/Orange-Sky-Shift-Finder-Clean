@@ -465,23 +465,7 @@
             outline-offset: 2px;
         }
 
-        .day-badge {
-            background: #ff6b35;
-            color: white;
-            padding: 4px 8px;
-            border-radius: 15px;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
 
-        .time-badge {
-            background: #28a745;
-            color: white;
-            padding: 4px 8px;
-            border-radius: 15px;
-            font-size: 0.8rem;
-            margin-left: 5px;
-        }
 
         #mapView {
             height: 600px;
@@ -740,25 +724,7 @@
                 text-align: center;
             }
 
-            .mobile-card-view .day-badge {
-                background: var(--primary-color);
-                color: white;
-                padding: 8px 16px;
-                border-radius: 20px;
-                font-weight: 600;
-                font-size: 14px;
-                display: inline-block;
-            }
 
-            .mobile-card-view .time-badge {
-                background: #e3f2fd;
-                color: #1976d2;
-                padding: 6px 12px;
-                border-radius: 12px;
-                font-weight: 600;
-                font-size: 13px;
-                display: inline-block;
-            }
 
             /* Action buttons */
             .mobile-card-view .action-buttons {
@@ -979,10 +945,7 @@
                 min-height: 32px;
             }
             
-            .day-badge, .time-badge {
-                font-size: 11px;
-                padding: 2px 6px;
-            }
+
             
             /* Improve touch targets */
             .services-table th {
@@ -1630,7 +1593,7 @@
             
             Object.values(locationGroups).forEach(location => {
                 const shiftsHtml = location.shifts.map(shift => 
-                    `<div style="margin: 8px 0; padding: 4px 0; line-height: 1.4;"><span class="day-badge" style="margin-right: 8px;">${shift.day}</span> <span class="time-badge">${shift.start_time} - ${shift.end_time}</span></div>`
+                    `<div style="margin: 8px 0; padding: 4px 0; line-height: 1.4;">${shift.day}: ${shift.start_time} - ${shift.end_time}</div>`
                 ).join('');
                 
                 const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(location.address + ', ' + location.suburb + ', ' + location.state)}`;
