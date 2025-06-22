@@ -253,41 +253,167 @@
             overflow: hidden;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
             table-layout: fixed;
+            font-size: 14px;
         }
 
-        .services-table th:nth-child(1) { width: 25%; } /* Location */
-        .services-table th:nth-child(2) { width: 12%; } /* Day */
-        .services-table th:nth-child(3) { width: 12%; } /* Start Time */
-        .services-table th:nth-child(4) { width: 12%; } /* End Time */
-        .services-table th:nth-child(5) { width: 8%; }  /* State */
-        .services-table th:nth-child(6) { width: 21%; } /* Address */
-        .services-table th:nth-child(7) { width: 10%; } /* Actions */
+        .services-table th:nth-child(1) { width: 35%; } /* Location */
+        .services-table th:nth-child(2) { width: 15%; } /* Day */
+        .services-table th:nth-child(3) { width: 25%; } /* Time */
+        .services-table th:nth-child(4) { width: 10%; } /* State */
+        .services-table th:nth-child(5) { width: 15%; } /* Actions */
 
         .services-table th {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: clamp(12px, 2vw, 15px);
+            padding: 16px 12px;
             text-align: left;
             font-weight: 600;
             position: sticky;
             top: 0;
             z-index: 10;
-            font-size: 14px;
-            vertical-align: top;
+            font-size: 15px;
+            vertical-align: middle;
+            letter-spacing: 0.5px;
         }
 
         .services-table td {
-            padding: clamp(12px, 2vw, 15px);
+            padding: 14px 12px;
             border-bottom: 1px solid #e9ecef;
-            vertical-align: top;
+            vertical-align: middle;
             word-wrap: break-word;
             overflow-wrap: break-word;
+            line-height: 1.4;
+        }
+
+        .suburb-info {
+            font-size: 13px;
+            color: #6c757d;
+            margin-top: 2px;
+        }
+
+        .details-btn {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            color: #495057;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            cursor: pointer;
+            margin-top: 6px;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .details-btn:hover {
+            background: #e9ecef;
+            color: #495057;
+        }
+
+        .details-btn i {
+            font-size: 11px;
+        }
+
+        /* Modal Styling */
+        .shift-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            max-width: 500px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .modal-header {
+            padding: 20px 24px 16px;
+            border-bottom: 1px solid #e9ecef;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h3 {
+            margin: 0;
+            color: #495057;
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 24px;
+            color: #6c757d;
+            cursor: pointer;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            transition: all 0.2s ease;
+        }
+
+        .modal-close:hover {
+            background: #f8f9fa;
+            color: #495057;
+        }
+
+        .modal-body {
+            padding: 20px 24px;
+        }
+
+        .detail-row {
+            margin-bottom: 12px;
+            padding: 8px 0;
+            border-bottom: 1px solid #f8f9fa;
+        }
+
+        .detail-row:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .detail-row strong {
+            color: #495057;
+            font-weight: 600;
+            display: inline-block;
+            min-width: 80px;
+        }
+
+        .modal-actions {
+            padding: 16px 24px 20px;
+            border-top: 1px solid #e9ecef;
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+        }
+
+        .modal-actions .btn-maps {
+            flex: 1;
+            max-width: 200px;
         }
 
         .services-table td:nth-child(2),
         .services-table td:nth-child(3),
-        .services-table td:nth-child(4),
-        .services-table td:nth-child(5) {
+        .services-table td:nth-child(4) {
             text-align: center;
         }
 
@@ -604,12 +730,10 @@
                 display: none; /* Hide text on very small screens */
             }
 
-            /* Modern Card-style layout - Thumbnail browsing experience */
+            /* Mobile-first Card Layout */
             .mobile-card-view .services-table {
-                display: grid;
-                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-                gap: 20px;
-                padding: 20px 0;
+                display: block;
+                padding: 16px;
             }
 
             .mobile-card-view .services-table thead {
@@ -617,114 +741,198 @@
             }
 
             .mobile-card-view .services-table tbody {
-                display: contents;
+                display: block;
             }
 
             .mobile-card-view .services-table tr {
-                display: flex;
-                flex-direction: column;
+                display: block;
                 background: white;
                 border: 1px solid #e0e0e0;
-                border-radius: 16px;
+                border-radius: 12px;
+                margin-bottom: 16px;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.1);
                 overflow: hidden;
-                box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-                transition: all 0.3s ease;
-                cursor: pointer;
-                position: relative;
+                transition: all 0.2s ease;
             }
 
             .mobile-card-view .services-table tr:hover {
-                transform: translateY(-4px);
-                box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+                box-shadow: 0 4px 16px rgba(0,0,0,0.15);
                 border-color: var(--primary-color);
             }
 
             .mobile-card-view .services-table td {
+                display: block;
                 border: none;
                 padding: 0;
-                display: none; /* Hide all by default */
+                text-align: left;
             }
 
-            /* Show only essential information in card format */
-             .mobile-card-view .services-table td[data-label="Location"] {
-                 display: block;
-                 order: 1;
-             }
-
-             .mobile-card-view .services-table td[data-label="Day"] {
-                 display: block;
-                 order: 2;
-                 padding: 0;
-             }
-
-             .mobile-card-view .services-table td[data-label="Start"],
-             .mobile-card-view .services-table td[data-label="End"],
-             .mobile-card-view .services-table td[data-label="State"],
-             .mobile-card-view .services-table td[data-label="Address"] {
-                 display: none !important;
-             }
-
-             .mobile-card-view .services-table td[data-label="Actions"] {
-                 display: block;
-                 padding: 15px 20px 20px 20px;
-                 order: 3;
-                 margin-top: auto;
-             }
-
-            /* Card header with location */
+            /* Location Header */
             .mobile-card-view .services-table td[data-label="Location"] {
                 background: linear-gradient(135deg, var(--primary-color), #1976d2);
                 color: white;
-                font-size: 18px;
-                font-weight: 700;
-                text-align: center;
-                padding: 24px 20px;
+                padding: 16px 20px;
                 margin: 0;
-                position: relative;
             }
 
             .mobile-card-view .services-table td[data-label="Location"] strong {
                 display: block;
-                font-size: 20px;
-                margin-bottom: 8px;
-                text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+                font-size: 18px;
+                font-weight: 700;
+                margin-bottom: 4px;
+                line-height: 1.3;
             }
 
             .mobile-card-view .services-table td[data-label="Location"] .distance-info {
                 background: rgba(255,255,255,0.2);
-                padding: 4px 12px;
-                border-radius: 20px;
+                padding: 4px 8px;
+                border-radius: 12px;
                 font-size: 12px;
                 font-weight: 500;
                 display: inline-block;
-                margin-top: 8px;
+                margin-top: 4px;
             }
 
-            /* Time and day info section */
-            .mobile-card-view .time-day-section {
+            /* Clean Mobile Card Design */
+            .mobile-card-view .shift-details {
+                margin: 12px;
+                background: white;
+                border-radius: 16px;
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+                border: 1px solid #e2e8f0;
+                overflow: hidden;
+            }
+
+            .mobile-card-view .shift-info-grid {
                 display: flex;
-                justify-content: space-between;
+                flex-direction: column;
+                gap: 8px;
+                padding: 16px;
+            }
+
+            .mobile-card-view .info-item {
+                display: flex;
+                justify-content: center;
                 align-items: center;
-                padding: 16px 20px;
-                background: #f8f9fa;
-                border-bottom: 1px solid #e9ecef;
             }
 
-            .mobile-card-view .services-table td[data-label="Day"] {
-                background: none;
-                padding: 0;
+            .mobile-card-view .address-item {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .mobile-card-view .info-label {
+                font-size: 12px;
+                color: #64748b;
+                font-weight: 600;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+                margin: 0;
+            }
+
+            .mobile-card-view .info-value {
+                font-size: 14px;
+                font-weight: 600;
+                color: #1e293b;
+                margin: 0;
+                text-align: right;
+            }
+
+            .mobile-card-view .day-value {
+                background: #3b82f6;
+                color: white;
+                padding: 6px 12px;
+                border-radius: 12px;
+                font-size: 12px;
+                font-weight: 600;
+                text-transform: uppercase;
+            }
+
+            .mobile-card-view .time-value {
+                background: #06b6d4;
+                color: white;
+                padding: 6px 12px;
+                border-radius: 12px;
+                font-size: 12px;
+                font-weight: 600;
+            }
+
+            .mobile-card-view .state-value {
+                background: #10b981;
+                color: white;
+                padding: 6px 12px;
+                border-radius: 12px;
+                font-size: 12px;
+                font-weight: 600;
+                text-transform: uppercase;
+            }
+
+            .mobile-card-view .address-value {
+                font-size: 13px;
+                color: #475569;
+                font-weight: 500;
+                line-height: 1.4;
+                margin-top: 4px;
+                padding: 8px 12px;
+                background: #f8fafc;
+                border-radius: 8px;
+                border-left: 3px solid #3b82f6;
+            }
+
+            /* Mobile Action Buttons */
+            .mobile-card-view .mobile-action-buttons {
+                display: flex;
+                gap: 8px;
+                width: 100%;
+                justify-content: center;
+            }
+
+            .mobile-card-view .mobile-btn-maps {
                 flex: 1;
+                padding: 12px 16px;
+                border: none;
+                border-radius: 8px;
+                font-size: 12px;
+                font-weight: 600;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 4px;
+                background: #3b82f6;
+                color: white;
             }
 
-            .mobile-card-view .services-table td[data-label="Start"],
-            .mobile-card-view .services-table td[data-label="End"] {
-                background: none;
-                padding: 0;
-                flex: 1;
-                text-align: center;
+            .mobile-card-view .mobile-btn-maps.apple {
+                background: #374151;
             }
 
+            .mobile-card-view .mobile-btn-maps i {
+                font-size: 12px;
+            }
 
+            /* Show Details cell in mobile view */
+            .mobile-card-view .services-table td[data-label="Details"] {
+                display: block;
+            }
+
+            /* Hide individual data cells in mobile, we'll restructure them */
+            .mobile-card-view .services-table td[data-label="Day"],
+            .mobile-card-view .services-table td[data-label="Time"],
+            .mobile-card-view .services-table td[data-label="State"] {
+                display: none;
+            }
+
+            /* Hide Details column in desktop view */
+            .services-table td[data-label="Details"] {
+                display: none;
+            }
+
+            /* Hide Actions Section in mobile view */
+            .mobile-card-view .services-table td[data-label="Actions"] {
+                display: none;
+            }
 
             /* Action buttons */
             .mobile-card-view .action-buttons {
@@ -740,22 +948,47 @@
                 font-weight: 600;
                 border-radius: 8px;
                 transition: all 0.2s ease;
+                min-height: 44px; /* Touch-friendly minimum */
             }
 
             .mobile-card-view .btn-maps:hover {
                 transform: translateY(-1px);
             }
 
+            .mobile-card-view .btn-maps .btn-text {
+                display: inline; /* Show text in mobile cards */
+            }
+
             /* Mobile responsive adjustments */
             @media (max-width: 480px) {
                 .mobile-card-view .services-table {
-                    grid-template-columns: 1fr;
-                    gap: 16px;
-                    padding: 16px 0;
+                    padding: 12px;
                 }
                 
                 .mobile-card-view .services-table tr {
-                    margin: 0 8px;
+                    margin-bottom: 12px;
+                }
+
+                .mobile-card-view .services-table td[data-label="Location"] {
+                    padding: 12px 16px;
+                }
+
+                .mobile-card-view .services-table td[data-label="Location"] strong {
+                    font-size: 16px;
+                }
+
+                .mobile-card-view .shift-details {
+                    padding: 12px 16px;
+                }
+
+                .mobile-card-view .action-buttons {
+                    flex-direction: column;
+                    gap: 8px;
+                }
+
+                .mobile-card-view .btn-maps {
+                    width: 100%;
+                    justify-content: center;
                 }
             }
 
@@ -908,20 +1141,11 @@
             border: none;
             padding: 8px 0;
             position: relative;
-            padding-left: 35%;
-            text-align: left;
+            text-align: center;
         }
 
         .mobile-card-view .services-table td:before {
-            content: attr(data-label);
-            position: absolute;
-            left: 0;
-            width: 30%;
-            padding-right: 10px;
-            white-space: nowrap;
-            font-weight: 600;
-            color: #666;
-            font-size: 12px;
+            display: none;
         }
 
         .mobile-card-view .action-buttons {
@@ -1217,16 +1441,8 @@
                                     tabindex="0"
                                     aria-sort="none"
                                     onkeydown="handleSortKeydown(event, 'start_time')">
-                                    Start Time <i class="fas fa-sort" aria-hidden="true"></i>
-                                    <span class="sr-only">Click to sort by start time</span>
-                                </th>
-                                <th role="columnheader" 
-                                    onclick="sortTable('end_time')" 
-                                    tabindex="0"
-                                    aria-sort="none"
-                                    onkeydown="handleSortKeydown(event, 'end_time')">
-                                    End Time <i class="fas fa-sort" aria-hidden="true"></i>
-                                    <span class="sr-only">Click to sort by end time</span>
+                                    Time <i class="fas fa-sort" aria-hidden="true"></i>
+                                    <span class="sr-only">Click to sort by time</span>
                                 </th>
                                 <th role="columnheader" 
                                     onclick="sortTable('state')" 
@@ -1236,7 +1452,6 @@
                                     State <i class="fas fa-sort" aria-hidden="true"></i>
                                     <span class="sr-only">Click to sort by state</span>
                                 </th>
-                                <th role="columnheader" class="mobile-hide">Address</th>
                                 <th role="columnheader">Actions</th>
                             </tr>
                         </thead>
@@ -1473,6 +1688,72 @@
             }
         }
 
+        function showShiftDetails(index) {
+            const shift = filteredShifts[index];
+            if (!shift) return;
+            
+            const modal = document.createElement('div');
+            modal.className = 'shift-modal';
+            modal.innerHTML = `
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>${shift.service_name || shift.location || 'Service Details'}</h3>
+                        <button class="modal-close" onclick="closeModal()">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="detail-row">
+                            <strong>Location:</strong> ${shift.service_name || shift.location || 'N/A'}
+                        </div>
+                        <div class="detail-row">
+                            <strong>Suburb:</strong> ${shift.suburb || 'N/A'}
+                        </div>
+                        <div class="detail-row">
+                            <strong>Address:</strong> ${shift.address || 'N/A'}
+                        </div>
+                        <div class="detail-row">
+                            <strong>Day:</strong> ${shift.day || 'N/A'}
+                        </div>
+                        <div class="detail-row">
+                            <strong>Time:</strong> ${shift.start_time || 'N/A'} - ${shift.end_time || 'N/A'}
+                        </div>
+                        <div class="detail-row">
+                            <strong>State:</strong> ${shift.state || 'N/A'}
+                        </div>
+                        ${userLocation && shift.lat && shift.lng ? `
+                        <div class="detail-row">
+                            <strong>Distance:</strong> ${calculateDistance(
+                                userLocation.lat, userLocation.lng,
+                                parseFloat(shift.lat), parseFloat(shift.lng)
+                            ).toFixed(1)}km away
+                        </div>
+                        ` : ''}
+                    </div>
+                    <div class="modal-actions">
+                        <button class="btn-maps" onclick="openGoogleMaps('${generateGoogleMapsUrl(shift)}')">
+                            <i class="fas fa-map"></i> Google Maps
+                        </button>
+                        ${/iPad|iPhone|iPod/.test(navigator.userAgent) ? `
+                        <button class="btn-maps apple-maps" onclick="openAppleMaps('${generateAppleMapsUrl(shift)}')">
+                            <i class="fas fa-map"></i> Apple Maps
+                        </button>
+                        ` : ''}
+                    </div>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) closeModal();
+            });
+        }
+        
+        function closeModal() {
+            const modal = document.querySelector('.shift-modal');
+            if (modal) {
+                modal.remove();
+            }
+        }
+
         function renderTable() {
             const tbody = document.getElementById('shiftsTableBody');
             
@@ -1512,14 +1793,42 @@
                     <tr role="row" tabindex="0" aria-rowindex="${index + 2}">
                         <td role="gridcell" data-label="Location">
                             <strong>${shift.service_name || shift.location || 'N/A'}</strong>
+                            <div class="suburb-info">${shift.suburb || ''}</div>
                             ${distanceInfo ? `<span class="distance-info">${distanceInfo}</span>` : ''}
+                            <button class="details-btn" onclick="showShiftDetails(${index})" aria-label="View details for ${shift.service_name || shift.location}">
+                                <i class="fas fa-info-circle"></i> Details
+                            </button>
                         </td>
                         <td role="gridcell" data-label="Day">${shift.day || 'N/A'}</td>
-                        <td role="gridcell" data-label="Start">${shift.start_time || 'N/A'}</td>
-                        <td role="gridcell" data-label="End">${shift.end_time || 'N/A'}</td>
+                        <td role="gridcell" data-label="Time">${shift.start_time || 'N/A'} - ${shift.end_time || 'N/A'}</td>
                         <td role="gridcell" data-label="State">${shift.state || 'N/A'}</td>
-                        <td role="gridcell" class="mobile-hide" data-label="Address">
-                            ${shift.address ? `${shift.address}, ${shift.suburb}` : 'N/A'}
+                        <td role="gridcell" data-label="Details" class="shift-details">
+                            <div class="shift-info-grid">
+                                <div class="info-item">
+                                    <span class="info-value day-value">${shift.day || 'N/A'}</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-value time-value">${shift.start_time || 'N/A'} - ${shift.end_time || 'N/A'}</span>
+                                </div>
+                                <div class="info-item">
+                                    <span class="info-value state-value">${shift.state || 'N/A'}</span>
+                                </div>
+                                ${shift.address ? `
+                                <div class="info-item address-item">
+                                    <div class="info-value address-value">${shift.address}, ${shift.suburb}${distanceInfo}</div>
+                                </div>
+                                ` : ''}
+                                <div class="mobile-action-buttons">
+                                    <button class="mobile-btn-maps" onclick="openGoogleMaps('${googleMapsUrl}')" aria-label="Get directions via Google Maps">
+                                        <i class="fab fa-google"></i> Google
+                                    </button>
+                                    ${/iPad|iPhone|iPod/.test(navigator.userAgent) ? `
+                                    <button class="mobile-btn-maps apple" onclick="openAppleMaps('${appleMapsUrl}')" aria-label="Get directions via Apple Maps">
+                                        <i class="fab fa-apple"></i> Apple
+                                    </button>
+                                    ` : ''}
+                                </div>
+                            </div>
                         </td>
                         <td role="gridcell" data-label="Actions">
                             <div class="action-buttons">

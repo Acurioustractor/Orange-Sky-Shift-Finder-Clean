@@ -1,5 +1,5 @@
 // Service Worker for Orange Sky Shift Finder PWA
-const CACHE_NAME = 'orange-sky-v3';
+const CACHE_NAME = 'orange-sky-v4';
 const urlsToCache = [
   '/',
   '/index.html',
