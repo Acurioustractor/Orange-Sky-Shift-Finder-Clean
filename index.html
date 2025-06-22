@@ -748,9 +748,9 @@
                 display: block;
                 background: white;
                 border: 1px solid #e0e0e0;
-                border-radius: 12px;
-                margin-bottom: 16px;
-                box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+                border-radius: 10px;
+                margin-bottom: 12px;
+                box-shadow: 0 1px 6px rgba(0,0,0,0.08);
                 overflow: hidden;
                 transition: all 0.2s ease;
             }
@@ -771,16 +771,16 @@
             .mobile-card-view .services-table td[data-label="Location"] {
                 background: linear-gradient(135deg, var(--primary-color), #1976d2);
                 color: white;
-                padding: 16px 20px;
+                padding: 12px 16px;
                 margin: 0;
             }
 
             .mobile-card-view .services-table td[data-label="Location"] strong {
                 display: block;
-                font-size: 18px;
+                font-size: 16px;
                 font-weight: 700;
-                margin-bottom: 4px;
-                line-height: 1.3;
+                margin-bottom: 3px;
+                line-height: 1.2;
             }
 
             .mobile-card-view .services-table td[data-label="Location"] .distance-info {
@@ -795,10 +795,10 @@
 
             /* Clean Mobile Card Design */
             .mobile-card-view .shift-details {
-                margin: 12px;
+                margin: 8px;
                 background: white;
-                border-radius: 16px;
-                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+                border-radius: 12px;
+                box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
                 border: 1px solid #e2e8f0;
                 overflow: hidden;
             }
@@ -806,8 +806,8 @@
             .mobile-card-view .shift-info-grid {
                 display: flex;
                 flex-direction: column;
-                gap: 8px;
-                padding: 16px;
+                gap: 6px;
+                padding: 12px;
             }
 
             .mobile-card-view .info-item {
@@ -890,7 +890,7 @@
 
             .mobile-card-view .mobile-btn-maps {
                 flex: 1;
-                padding: 12px 16px;
+                padding: 10px 14px;
                 border: none;
                 border-radius: 8px;
                 font-size: 12px;
@@ -929,8 +929,8 @@
                 display: none;
             }
 
-            /* Hide Actions Section in mobile view */
-            .mobile-card-view .services-table td[data-label="Actions"] {
+            /* Hide Maps Section in mobile view */
+            .mobile-card-view .services-table td[data-label="Maps"] {
                 display: none;
             }
 
@@ -1452,7 +1452,7 @@
                                     State <i class="fas fa-sort" aria-hidden="true"></i>
                                     <span class="sr-only">Click to sort by state</span>
                                 </th>
-                                <th role="columnheader">Actions</th>
+                                <th role="columnheader">Maps</th>
                             </tr>
                         </thead>
                         <tbody id="shiftsTableBody" role="rowgroup">
@@ -1820,30 +1820,18 @@
                                 ` : ''}
                                 <div class="mobile-action-buttons">
                                     <button class="mobile-btn-maps" onclick="openGoogleMaps('${googleMapsUrl}')" aria-label="Get directions via Google Maps">
-                                        <i class="fab fa-google"></i> Google
+                                        <i class="fab fa-google"></i> Google Maps
                                     </button>
-                                    ${/iPad|iPhone|iPod/.test(navigator.userAgent) ? `
-                                    <button class="mobile-btn-maps apple" onclick="openAppleMaps('${appleMapsUrl}')" aria-label="Get directions via Apple Maps">
-                                        <i class="fab fa-apple"></i> Apple
-                                    </button>
-                                    ` : ''}
                                 </div>
                             </div>
                         </td>
-                        <td role="gridcell" data-label="Actions">
+                        <td role="gridcell" data-label="Maps">
                             <div class="action-buttons">
                                 <button class="btn-maps" 
                                         onclick="openGoogleMaps('${googleMapsUrl}')"
                                         aria-label="Get directions to ${shift.service_name || shift.location} via Google Maps">
                                     <i class="fas fa-map" aria-hidden="true"></i>
-                                    <span class="btn-text">Google Maps</span>
-                                </button>
-                                <button class="btn-maps apple-maps" 
-                                        onclick="openAppleMaps('${appleMapsUrl}')"
-                                        aria-label="Get directions to ${shift.service_name || shift.location} via Apple Maps"
-                                        style="display: none;">
-                                    <i class="fas fa-map" aria-hidden="true"></i>
-                                    <span class="btn-text">Apple Maps</span>
+                                    <span class="btn-text">Google</span>
                                 </button>
                             </div>
                         </td>
